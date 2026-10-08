@@ -138,15 +138,20 @@ Say so plainly — the disclosure is required, not penalised. -->
 
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+**Base model:** `distilbert-base-uncased`
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Settings:** seed 42, 3 epochs, lr 2e-5, batch size 16, max length 128
 
-**Anything I changed from the defaults, and why:**
+**Anything I changed from the defaults, and why:** Nothing — ran with the
+notebook's defaults.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+**Device:** CPU (`torch 2.14.1+cpu`, no CUDA/MPS available on this machine —
+recorded in `results.json`'s `device`/`device_name` fields).
+
+**Split sizes:** 209 total → 32 in the test split: `reaction` 21, `hot_take`
+6, `analysis` 5. Both `hot_take` and `analysis` are under the ~8-example
+floor for a stable test-split F1 — exactly the jumpiness criteria.md's
+per-label target (criterion 2) was written to expect.
 
 
 

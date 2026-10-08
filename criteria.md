@@ -30,13 +30,13 @@ somewhere you'd honestly call useful.
 form to fill in — a criterion that fits none of them is fine if it names a
 number.
 
-| Area | A question it could answer |
-|---|---|
-| Overall accuracy | How often does it need to be right to be worth using? |
-| Per-label performance | Is one label allowed to be much worse than the others? |
-| Balance | How lopsided can your label counts get before it's a problem? |
-| Consistency | If someone else labelled the same posts, how often should you agree? |
-| Confidence | Should a confident prediction be right more often than an unsure one? |
+| Area                  | A question it could answer                                            |
+| --------------------- | --------------------------------------------------------------------- |
+| Overall accuracy      | How often does it need to be right to be worth using?                 |
+| Per-label performance | Is one label allowed to be much worse than the others?                |
+| Balance               | How lopsided can your label counts get before it's a problem?         |
+| Consistency           | If someone else labelled the same posts, how often should you agree?  |
+| Confidence            | Should a confident prediction be right more often than an unsure one? |
 
 Two things worth knowing before you pick numbers, because both will affect
 whether you hit them:
@@ -106,8 +106,7 @@ friction as a failure.
 
 ## 5. Confidence
 
-Among predictions where the model's top-class probability is at least 0.90, accuracy should
-be at least **0.85** — meaningfully higher than overall accuracy.
+Among predictions where the model's top-class probability is at least 0.90, accuracy should be at least **0.85** — meaningfully higher than overall accuracy.
 
 **Why this target:** If high-confidence predictions aren't noticeably more accurate than the
 overall rate, the confidence score isn't telling me anything real, and I can't trust it to
