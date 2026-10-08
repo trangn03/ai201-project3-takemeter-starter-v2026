@@ -161,3 +161,108 @@ Format: **Title** — flair, score, comment count — selftext (if any)
   verdict, Ronaldo NT exit) — a time-of-day sampling artifact, not representative of the
   sub's normal spread. Collecting across multiple days/threads will matter for taxonomy
   balance (the `check_dataset` 70%-dominance check will catch this if ignored).
+
+---
+
+## Close reading: what makes a post feel substantial
+
+Length didn't track with substance. Klopp's quotes (#7, #44) and Jorge Jesús's transcript
+(#24) are the wordiest things in the sample but mostly hedge and repeat themselves without
+adding information. Carragher (#9) is shorter and denser — he grounds his claim in one
+specific memory (Jerzy Dudek's penalty save) instead of just asserting it.
+
+Specificity carried the most weight. The commercial-revenue post (#23) names real figures
+(£830m, £97m → £227m) and states a falsifiable thesis — the single most substantial post
+in the sample. The Portuguese Federation's communiqué (#32) is substantial for a different
+reason: it's a primary document, not someone's paraphrase of one.
+
+Stakes and treatment didn't match. "A Bulgarian soccer club president is shot dead at his
+home" (#45) is as grave as anything here and gets one flat sentence, 113 points, 18
+comments — nobody's processed it yet. A trivial oddity like Tapsoba passing the ball to his
+own coach (#42) gets exactly the brief treatment it deserves. "How big a deal is the
+underlying event" and "how substantial is this post as a piece of text" are different axes.
+
+Evasive non-answers are a recognizable type on their own. Klopp (twice), Jesús, and PSG's
+Al-Khelaifi ("we are not judges and we are not a court") are all longish quotes whose actual
+content is a public figure declining to say anything.
+
+Some posts are pure spectacle with zero propositional content — goal clips (#30, #35, #36),
+the tifo video (#2), the Van Persie nostalgia clip (#37). There's nothing to read; the
+"post" is entirely the linked video.
+
+Human-interest posts punch above their length. Mohammad Dirieh's armband moment (#26) and
+Raphinha's glasses gesture (#40) are one or two sentences each, but concrete and specific
+enough to feel more substantial than several longer news blurbs.
+
+### Four pointable distinctions
+
+1. **Cites a number, or doesn't.** #23 (£830m / £97m / £227m), #41 (£50m legal costs),
+   #30/#35/#36 (minute markers, scorelines) name a quantity. #6, #11, #19, #21, #31, #38
+   state a claim with no number attached anywhere in it.
+2. **Contains a direct quotation in someone's own words, or only describes what happened.**
+   #7, #9, #15, #24, #29, #34 put quotation marks around a named person's actual sentences.
+   #4, #10, #31, #38, #43 report an event or outcome with no one's words quoted at all.
+3. **Is the primary document, or reports on one.** #18 (a leaked internal email), #32 (the
+   federation's own communiqué) and the quote-screenshot posts (#3, #25) present the thing
+   itself. #6 ("rival clubs feel"), #19 ("has been advised to"), #28 ("confirmed by the
+   agent of a City player") are one or more steps removed.
+4. **Has text under the title, or is the title.** #7, #9, #14, #22, #23, #24, #32, #33
+   carry a selftext body you can actually read past the headline. Roughly two-thirds of the
+   sample — #2, #3, #4, #6, #10, #11, #12, #15, #16, #17, #19, #21, #25, #29, #30, #31, and
+   more — are a bare title pointing off-site, with nothing else in the post to read.
+
+### Candidate labels (draft)
+
+**`analysis`** — makes a claim and backs it with a specific, checkable fact (a stat, a
+document, a cited precedent).
+- #23, the commercial-revenue post: cites £830m of sham revenue, then the £97m→£227m
+  year-over-year jump, to argue the funding pattern continued past the period the
+  Commission examined.
+- #9, Carragher's quote: argues from a specific memory ("I remember Jerzy Dudek saving the
+  penalty... Those City players will never get that feeling") rather than just asserting
+  the titles are tainted.
+
+**`hot_take`** — states a strong evaluative conclusion with nothing offered to support it.
+- #15, Roy Keane: "It was cheating. It was cheating going on." — asserted twice, no fact
+  attached either time.
+- #5, "Pep Guardiola's Man City was built on a false premise, funded by financial
+  chicanery... his legacy is completely tarnished" — a full verdict delivered as the
+  headline itself.
+
+**`deflection`** — a direct quote that visibly avoids answering the question it was given.
+- #7, Klopp on City's charges: "I don't really have any strong feelings about it... I'm
+  absolutely fine with what we've achieved in Liverpool" — asked about City's punishment,
+  answers about his own contentment instead.
+- #29, Al-Khelaifi on the guilty verdict: "we are not in a position to judge... we are not
+  judges and we are not a court" — states twice what he won't say, not what he thinks.
+
+**`bare_announcement`** — reports an outcome with no quote, number, or reasoning attached
+beyond the fact itself.
+- #39, "Chris Smalling signs with FC Porto" — one sentence, term length, nothing else.
+- #43, "Tim Ream announces retirement from US men's national team" — a milestone stated,
+  no elaboration.
+
+Two people reading the same post should land on the same one of these four most of the
+time — each has a single sentence that settles it ("is there a number/document backing the
+claim?", "did the quote answer the question?").
+
+## Boundary case: hot_take vs. reaction
+
+(Current taxonomy is the course's 3-label set: `analysis` / `hot_take` / `reaction` — see
+`label_definitions.txt`. The four-label set above is kept for reference but superseded.)
+
+Post: Roy Keane on the Man City verdict —
+> "If I was a player, I'd be 100% sticking those medals in the bin. It's cheating. You hear
+> nonsense from ex-players saying it was won on the pitch. It was cheating. It was cheating
+> going on."
+
+This one sits between **`reaction`** and **`hot_take`**. The case for `reaction`: it's a
+quote given in the moment, directly off the back of the verdict being announced — timing-wise
+it's exactly what `reaction` describes. The case for `hot_take`: the content isn't a feeling
+("I'm shocked," "I don't want to talk about it") — it's a flat verdict ("It was cheating"),
+stated twice, with no argument or fact attached beyond the assertion itself.
+
+**Decision rule:** if a quote renders a verdict — a claim about what IS the case — label it
+`hot_take`, even if it was said in the same breath as breaking news. Reserve `reaction` for
+quotes that stay at the level of feeling (shock, relief, refusal to engage) without resolving
+into a stated conclusion. Timing triggers the quote; content decides the label.

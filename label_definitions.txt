@@ -5,6 +5,11 @@
 #
 # Delete the examples below and put yours in.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+analysis: states a claim where a specific, checkable fact (a stat, a date, a quote) is the
+reason given for the claim — remove the fact and the claim stops holding up.
+hot_take: states or clearly implies a confident verdict (including a rhetorical question
+with an obvious implied answer) without a fact offered as the reason for it. A fact can be
+present, but only decoratively — the verdict doesn't depend on it.
+reaction: describes a scene, feeling, or event with no verdict stated or implied. If you
+can't point to a sentence that asserts "X is true/should happen," it's reaction, even if a
+number appears in the text.
