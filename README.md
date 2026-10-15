@@ -492,24 +492,44 @@ How I know, ruling out the other three:
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** Added 31 new `analysis`-labelled posts collected from
+r/soccer comment threads (match post-match threads, an opinion piece on
+club ownership, and a news-article thread), nearly doubling `analysis` from
+34 to 65 examples. `labels.csv` went from 209 to 240 rows; `hot_take` (41)
+is now the thinnest label instead of `analysis`.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** Criteria 1 and 2's diagnosis ("too few
+examples for `analysis` and `hot_take`," with the other three causes ruled
+out — see Diagnoses above) named adding examples to the thinnest label as
+the actionable fix, pending the agreement report for the labelling-
+consistency question it left open.
 
-### Run Log — After
+### Run Log — Before vs. After
 
-| Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
-| --------- | ------ | ------- | ------ | --------- | ------- |
-| 1.        |        |         |        |           |         |
-| 2.        |        |         |        |           |         |
-| 3.        |        |         |        |           |         |
-| 4.        |        |         |        |           |         |
-| 5.        |        |         |        |           |         |
+| Criterion | Target | Before — Seed 42 | Before — Seed 7 | Before — Seed 2024 | Before Verdict | After — Seed 42 | After — Seed 7 | After — Seed 2024 | After Verdict |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1. Overall accuracy | ≥ 0.80 | 0.656 | 0.656 | 0.656 | **MISSED** | 0.556 | 0.556 | 0.556 | **MISSED** |
+| 2. Per-label F1 | every label ≥ 0.50 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | **MISSED** (`analysis`, `hot_take`) | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.714 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.714 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.727 | **MISSED** (`analysis`, `hot_take`) |
+| 3. Balance | no label > 70%; smallest ≥ 30 examples (pre-split) | `reaction` 64.1%, smallest (`analysis`) 34 | *(same file every seed)* | *(same)* | **MET** | `reaction` 55.8%, smallest (`hot_take`) 41 | *(same file every seed)* | *(same)* | **MET** |
+| 4. Consistency | ≥ 75% agreement on staff set | *not yet run* | | | *pending* | *not yet run* | | | *pending* |
+| 5. Confidence | accuracy ≥ 0.85 among predictions ≥ 0.90 confidence | 1.000 (proxy) | 0.900 (proxy) | 0.900 (proxy) | **MET** (on proxy) | 0.917 (proxy) | 0.917 (proxy) | 0.917 (proxy) | **MET** (on proxy) |
 
-**Did it help, and how do I know:**
-
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
+**Did it help, and how do I know:** No. Nearly doubling `analysis` (34 → 65)
+left its F1 at 0.000 in all three seeds, identical to before — the model
+still predicts `reaction` for essentially every held-out post (one single
+exception: seed 2024 misclassified one `hot_take` post as `analysis`,
+instead of as `reaction` like every other minority-label post). Accuracy
+and `reaction`'s own F1 both *dropped* (0.656→0.556, 0.792→0.714-0.727),
+but that's not a regression — it's the majority-class share shrinking
+as the dataset became more balanced (`reaction` 64.1%→55.8% of the file),
+and this model's whole strategy is "always guess `reaction`," so its
+accuracy just tracks that share. If scarcity were the entire cause, I'd
+expect doubling `analysis` to produce at least a few correct predictions
+on it — it produced none. That's evidence the collapse isn't (purely) a
+data-volume problem, which shifts weight back onto the open question from
+the Diagnoses section: a labelling-consistency issue that the agreement
+report, once `data/staff_labels.csv` arrives, is the only instrument that
+can confirm or rule out.
 
 ---
 
