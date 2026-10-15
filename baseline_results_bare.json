@@ -1,0 +1,194 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 32,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": false,
+  "scores": {
+    "n": 32,
+    "accuracy": 0.375,
+    "f1_macro": 0.2484472049689441,
+    "per_label": {
+      "analysis": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      },
+      "hot_take": {
+        "precision": 0.11764705882352941,
+        "recall": 0.3333333333333333,
+        "f1": 0.1739130434782609,
+        "support": 6
+      },
+      "reaction": {
+        "precision": 0.7142857142857143,
+        "recall": 0.47619047619047616,
+        "f1": 0.5714285714285714,
+        "support": 21
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "[Telegraph] Man Utd, Liverpool, Arsenal and Spurs were handed Man City guilty verdict early",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "[David Faitelson] \"I'm told in Tijuana that they received word from Gilberto Mora's representative, a Brazilian woman named Rafaela Pimenta, that there's an offer from an English club, in this case Liverpool, for a record-breaking sum exceeding $50 million for Xolos de Tijuana for Gilberto Mora\"",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "That was Maresca. Imagine taking over such a giant and getting relegated before the season's even halfway through",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "39 year old Messi in his last game.",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "International all-time topscorers following this international break, the retirements from Messi and D\u017eeko, and the potential retirement of Ronaldo.\n\n[Source](https://en.wikipedia.org/wiki/List_of_men%27s_footballers_with_50_or_more_international_goals#By_player)",
+      "gold": "analysis",
+      "predicted": "reaction"
+    },
+    {
+      "text": "Also can't ignore that he pretty much made bullet points for the manager to say about him in the press lol\n\nWhat a ridiculous person",
+      "gold": "hot_take",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Kasper Dolberg undergoes successful surgery",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Albania 1-[1] San Marino - Lorenzo Lazzari 66'",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Villa Park hasn't held a penalty shoot out since 1994 but every other English club in the football league 92 has in the past 10 years including new stadiums\n\nEven Everton have had a penalty shootout at the Hill Dickinson Stadium 2 years ago.\n\n  As far as I can find, 91 out of 92 of the Football League teams have had a competitive shoot out at their home stadium within the last 19 years.\n\n  But the last competitive penalty shoot out at villa park was 32 years ago.\n\n   Correct me if I'm wrong.",
+      "gold": "analysis",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "All of their titles are questionable. Whoever thinks they magically stopped the cheating is an idiot.\n\nThey've cheated every single year since the takeover and they also cheated this very season.\n\nThe Prem needs to look at absolutely everything but that's a task for after the punishment goes through.",
+      "gold": "hot_take",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "[SRF] Swiss Football Association withdraws support for FIFA President Infantino",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "C H I C A N E R Y",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "[Sami Mokbel, BBC] Declan Rice close to agreeing new Arsenal deal\n\n**Declan Rice is close to agreeing a new long-term Arsenal contract, sources have told BBC Sport.**",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Mikel Arteta's new four-year contract worth up to \u00a325m a year, making him the best-paid manager in the Premier League.\n\n> The Arsenal manager, 44, will earn a basic salary of about \u00a320m plus bonuses for success. The 44-year-old had one year remaining on his present contract, which was worth about \u00a312m a year plus \u00a33m in bonuses. \n\n> Arteta is the longest-serving manager in the top four divisions, having been appointed in December 2019.",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Roy Keane on Man City verdict: \u201cIf I was a player, I\u2019d be 100% sticking those medals in the bin. It\u2019s cheating. You hear nonsense from ex-players saying it was won on the pitch. It was cheating. It was cheating going on.\u201d",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "Over 600 votes he got, and he was only 6 behind Messi. Almost certainly wins the Balon D'Or if we also won the league and were invincible.",
+      "gold": "analysis",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "PL titles, and in this hypothetical the 2015-16 League Cup; which would have seen us qualified for Europe in the 2016/17 season and been Klopp's first trophy with us. You lot were robbed of the 2018 League Cup by them, a victorious ending for Wenger's tenure at Arsenal. There's Sunderland in 2014, Watford in the F.A. Cup and that's just the finalists.\n\nOGS would have been a PL winner, Ferguson would have won it in the 2011-12 season and become a triple threepeat winner with the Scum, and Arteta a 3-time PL winner. Of course you can't possibly account for the butterfly effects and this takeaway positions retroactive stripping and re-awarding of titles as should be's (aside for the point regarding Ferguson's 2011-12 season given they matched them on points I'd argue) but what can be said is that Man City are proven to have cheated for half of the Premier League's entire existence during those years and continue to ride off the back of those years of cheating. Anything less than the hammer will be chickenshit.\n\nAbsolutely delighted we've got the cheating cunts at Anfield",
+      "gold": "analysis",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "he tried to milk it to the very last drop, so many seasons where he almost left likely hinged upon this decision coming out\n\ncity knew exactly when this was coming and it's not surprising Pep leaves precisely before",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Argentina fans reaction to an advertisement for an insurance company being displayed by drones after Messi\u2019s final international game",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "He's always been off, from the beginning. But I thought he'd mellow out with time.\nYou know, like everyone cringes a bit when they look back at their own past. \n\nBut of course the fame and money only made him worse.",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "One of the most pathetic things I've ever read.\n\nThrew a fit because the coach told him he would play 30 minutes, but the tactics of the match changed (which happens all the time), so he didn't get subbed on.\n\nLiterally threw a fit like a toddler because he had to warm up and not get subbed on.\n\nThen threw a bigger fit because the manager didn't read the list of nice things he was supposed to say about him so that he didn't look like such a bitch.",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "[Portuguese Federation] Comunicado FPF\n\nOficial:\n\nComunicado da Federa\u00e7\u00e3o Portuguesa de Futebol.\n\nA Federa\u00e7\u00e3o Portuguesa de Futebol informa que o internacional portugu\u00eas Cristiano Ronaldo deixou o est\u00e1gio da Sele\u00e7\u00e3o Nacional, que decorre em Copenhaga.\n\nA prepara\u00e7\u00e3o dos encontros frente \u00e0 Dinamarca e \u00e0 Noruega, este \u00faltimo a disputar no Est\u00e1dio do Drag\u00e3o, prosseguir\u00e1 nos termos previstos, com os restantes 24 jogadores convocados.\n\nToda a comitiva mant\u00e9m o foco absoluto nos pr\u00f3ximos compromissos da Sele\u00e7\u00e3o Nacional e na concretiza\u00e7\u00e3o dos objetivos definidos.\n\nTranslation (using Gemini):\n\nThe Portuguese Football Federation announces that Portuguese international Cristiano Ronaldo has left the National Team training camp in Copenhagen.\n\nPreparations for the matches against Denmark and Norway\u2014the latter to be played at the Est\u00e1dio do Drag\u00e3o\u2014will proceed as planned with the remaining 24 call-ups.\n\nThe entire delegation remains fully focused on the National Team's upcoming fixtures and on achieving the set objectives.",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Lionel Messi gets emotional during Argentina's national anthem before his final match against Benin",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "[Sky Sports] The city of Bochum has declared that fans can no longer bounce in the Ostkurve of the Rhurstadion and threaten to close the stadium after structural engineers deemed it unsafe. Modernisation plans are already underway and will be completed by 2028.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "There have been agents [Of Man City players] discussing \u2018just cause\u2019 provisions in contracts \u2013 options held by club and player \u2013 and whether severe punishment amounting to relegation may give reason to rip up contracts.",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Sarri on De Ketelaere wanting to play striker: \"Maybe I can lock him, Scamacca and Kristovic in a room and whoever comes out alive plays as the striker. Joking aside, I'll talk to him and see what space I can find for him, I certainly won't abandon Scamacca and Kristovic.\"",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "Alternate angle of Rodrigo Mora\u2019s great goal vs Gibraltar U21.",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Former Serbia head coach Dragan Stojkovi\u0107 in talks to become LAFC manager",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "5 years ago today, Public Investment Fund\u2019s takeover of Newcastle United was completed.",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Cristiano Ronaldo in showdown talks with Portugal after being an unused substitute\n\nCristiano Ronaldo is at the centre of crisis talks within the Portugal camp after the president of the nation\u2019s football federation flew in over the decision to bench the 41-year-old.\n\nRonaldo reacted angrily to being an unused substitute in Portugal\u2019s 2-1 victory over Norway on Sunday, when he stormed down the tunnel at the final whistle.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "HMRC opened probe into Man City\u2019s tax affairs in 2018\n\nUK tax authorities probed Manchester City in 2018 over whether it used complex arrangements to underpay tax, nearly a decade before the club was found to have breached the Premier League's financial rules.\n\nHM Revenue & Customs opened a civil investigation into Man City's tax affairs in the wake of the publication of a trove of leaked internal emails by Der Spiegel in 2018, according to people with knowledge of the situation.\n\nHMRC's earlier probe, which was never formally closed, was conducted under a so-called Code of Practice 8 [COP8] investigation \u2014 a civil inquiry used by the authority when it suspects a person or company may have used complex structures for tax avoidance, the people said. COP8 investigations do not involve suspicions of deliberate fraud.\n\nThe club instructed external lawyers to advise it on the probe, the people said. Man City argued to HMRC that there was nothing untoward about its commercial arrangements, according to one of the people. HMRC has not taken any action, the people added.\n\nMan City and HMRC declined to comment.",
+      "gold": "analysis",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Andy Burnham has said he would be \u201creally concerned\u201d to lose Manchester City\u2019s owners as a result of the club being found guilty of more than 100 breaches of Premier League rules.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    }
+  ]
+}
