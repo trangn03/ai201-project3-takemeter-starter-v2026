@@ -312,30 +312,55 @@ label definitions.
 <!-- Five criteria across three seeds. The notebook's section 6 prints the
      spread table; the Target and Verdict columns are yours. -->
 
-| Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
-| --------- | ------ | ------- | ------ | --------- | ------- |
-| 1.        |        |         |        |           |         |
-| 2.        |        |         |        |           |         |
-| 3.        |        |         |        |           |         |
-| 4.        |        |         |        |           |         |
-| 5.        |        |         |        |           |         |
+| Criterion           | Target                                                | Seed 42                                                        | Seed 7                                                         | Seed 2024                                                      | Verdict                                       |
+| ------------------- | ----------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------- |
+| 1. Overall accuracy | ≥ 0.80                                               | 0.656                                                          | 0.656                                                          | 0.656                                                          | **MISSED**                              |
+| 2. Per-label F1     | every label ≥ 0.50                                   | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | **MISSED** (`analysis`, `hot_take`) |
+| 3. Balance          | no label > 70%; smallest ≥ 30 examples (pre-split)   | `reaction` 64.1%, smallest (`analysis`) 34                 | *(dataset-level — same file for every seed)*                | *(same)*                                                     | **MET**                                 |
+| 4. Consistency      | ≥ 75% agreement on staff set                         | *not yet run*                                                |                                                                |                                                                | *pending — run `agreement.py`*           |
+| 5. Confidence       | accuracy ≥ 0.85 among predictions ≥ 0.90 confidence | 1.000 (proxy)                                                  | 0.900 (proxy)                                                  | 0.900 (proxy)                                                  | **MET** (on proxy — see note)          |
+
+**Note on row 5:** `results_three_seeds_before.json` only saves confidence in
+aggregated thirds (`accuracy_most_confident_third`), not the raw per-prediction
+confidence the criterion names (accuracy among predictions ≥ 0.90). The values
+above are the most-confident-third accuracy as a substitute, not the literal
+metric. Worth reading cautiously either way: since this model predicts
+`reaction` for every post (see the confusion matrix below), "confident
+predictions are more often right" partly reflects that `reaction` actually is
+right 21/32 of the time — a confidence score tracking its own majority-class
+bias, not necessarily evidence the model is well-calibrated.
+
+**Note on row 4:** No value yet. `agreement.py` requires `data/staff_labels.csv`,
+which TF provides only after `my_staff_labels.csv` is submitted — it
+can't be estimated or substituted. This row gets filled in once that file
+arrives.
 
 ### Confusion matrix
 
 <!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
      An image of a matrix earns nothing. -->
 
-| true \ predicted |  |  |  |
-| ---------------- | - | - | - |
-| ****             |  |  |  |
-| ****             |  |  |  |
-| ****             |  |  |  |
+| true \ predicted   | analysis | hot_take | reaction |
+| ------------------ | -------- | -------- | -------- |
+| **analysis** | 0        | 0        | 5        |
+| **hot_take** | 0        | 0        | 6        |
+| **reaction** | 0        | 0        | 21       |
 
 **My biggest off-diagonal number, and what it means:**
 
 <!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
      direction. "7 real analysis posts were called hot_take and only 3 went the
      other way" is a direction, not just an error rate. -->
+
+6 real `hot_take` posts were called `reaction`, and 0 real `reaction` posts
+were ever called `hot_take` — entirely one-directional. The same pattern
+holds for `analysis`: all 5 real `analysis` posts were called `reaction`,
+0 the other way. The model didn't partially learn either boundary and
+blur the edges; it never predicts `analysis` or `hot_take` at all, in
+either seed's test split. That's a model that fell back entirely on the
+majority class rather than one that's confusing two genuinely similar
+labels — the direction never reverses, which is what a learned-but-fuzzy
+boundary would look like.
 
 ---
 
@@ -346,11 +371,11 @@ label definitions.
 
 | # | Criterion | Target | Verdict | How I decided |
 | - | --------- | ------ | ------- | ------------- |
-| 1 |           |        |         |               |
-| 2 |           |        |         |               |
-| 3 |           |        |         |               |
-| 4 |           |        |         |               |
-| 5 |           |        |         |               |
+| 1 | Overall accuracy | ≥ 0.80, all three seeds | **MISSED** | 0.656 in every seed (42, 7, 2024) — short of 0.80 in each one individually, not just on average |
+| 2 | Per-label F1 | every label ≥ 0.50, all three seeds | **MISSED** | `reaction` clears it (0.792 in every seed), but `analysis` and `hot_take` are 0.000 in every seed — the model never predicts either label at all |
+| 3 | Balance | no label > 70%; smallest ≥ 30 examples (pre-split) | **MET** | `reaction` is 64.1% of `labels.csv` (< 70%), and the smallest label (`analysis`) has 34 examples (≥ 30) |
+| 4 | Consistency | ≥ 75% agreement on staff set | **Not yet measured** | `agreement.py` needs `data/staff_labels.csv`, which hasn't arrived from course staff yet |
+| 5 | Confidence | accuracy ≥ 0.85 among predictions ≥ 0.90 confidence | **MET** (on proxy) | Exact threshold isn't saved by the notebook; most-confident-third accuracy (1.000 / 0.900 / 0.900) stands in as a disclosed substitute — see the Run Log note |
 
 **Diagnoses**
 
@@ -362,6 +387,52 @@ label definitions.
      ⚠️ Use your agreement report as evidence. It is the only instrument you
      have that can tell a LABELLING problem from a MODEL problem, and this
      section is graded on whether you used it that way. -->
+
+> **This diagnosis is provisional.** Criterion 4 (Consistency) hasn't run yet
+> — `data/staff_labels.csv` isn't here — and that's specifically the
+> instrument that tells a labelling problem from a model problem. What
+> follows is what the other evidence (confusion matrix, split counts, the
+> three-seed spread, and the baseline run) can rule in or out on its own; the
+> one open question below gets resolved once the agreement report lands.
+
+**Criterion 1 (overall accuracy) and criterion 2 (per-label F1) share one cause: too few examples for `analysis` and `hot_take`.**
+
+How I know, ruling out the other three:
+
+- **Not a genuinely hard label pair.** A hard pair shows up as the model
+  sometimes guessing the minority label and getting it half-right — confusion
+  in both directions, varying by which posts land in the split. Here
+  `analysis` and `hot_take` are at 0.000 F1 in *all three* seeds, with *zero*
+  correct predictions and *zero* reverse confusions (`reaction` is never
+  mistaken for either of them). The model isn't finding the boundary blurry;
+  it isn't looking for the boundary at all.
+- **Not a task unreachable from 200 examples, at least not uniformly** — the
+  same model, same training setup, same amount of data gets `reaction` to
+  0.792 F1. The architecture and the data volume are evidently enough to
+  learn *something* here; they just never pay off for the two labels with
+  fewer training examples (`analysis` 24, `hot_take` 29, vs. `reaction` 92 in
+  the 145-row train split).
+- **Consistent with too few examples / class imbalance.** The collapse is
+  identical across all three seeds (zero spread on every measure — see the
+  Run Log table) despite each seed drawing a different stratified split. That
+  seed-invariance is itself evidence: if this were about which specific posts
+  happened to land in training, the three seeds would disagree with each
+  other at least a little. They don't, which points at something structural
+  (the label counts themselves) rather than something that depends on the
+  luck of the split. The zero-shot baseline — which never trained on
+  `labels.csv` at all — collapses to the identical `reaction`-only behaviour
+  given the same test posts and full definitions, which is further evidence
+  that the test split's own 21/32 `reaction` majority is enough on its own to
+  make "always guess `reaction`" the dominant strategy, independent of
+  training.
+- **Open question — a boundary applied inconsistently.** What I can't yet
+  rule out is whether the `analysis`/`hot_take` scarcity is compounded by
+  inconsistent labelling on my part in the original 209 — i.e. whether some
+  of those 34 `analysis` and 41 `hot_take` posts are themselves borderline
+  calls I made differently in different parts of the file, which would make
+  the *effective* signal even thinner than the raw counts suggest. The
+  agreement report is exactly the instrument for that, and I'll revise this
+  diagnosis once criterion 4 has a real number behind it.
 
 ---
 
