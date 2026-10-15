@@ -258,6 +258,29 @@ per-label target (criterion 2) was written to expect.
   batch of posts in this dataset — submissions and comment threads alike —
   rather than hand-copying individual posts one at a time.
 
+**Moment 3**
+
+- *What I asked for:* After the before-run collapsed to predicting `reaction`
+  on every test post, I asked Claude to read the confusion matrix and tell me
+  whether `analysis` and `hot_take` were being confused *with each other*
+  (a genuinely hard pair) or something else.
+- *What came back:* Neither minority label ever received a single prediction
+  in either direction — every `analysis` and `hot_take` post was routed to
+  `reaction`, and `reaction` was never misrouted the other way. That
+  one-directional pattern (not mutual confusion) pointed at scarcity/imbalance
+  rather than the labels being conceptually too close together — a
+  genuinely-hard-pair failure would show posts leaking both ways.
+- *What I changed:* Picked "add more `analysis` examples" as the one
+  improvement to try, on the strength of that diagnosis. After the after-run
+  came back with `analysis`/`hot_take` F1 still at 0.000 despite nearly
+  doubling `analysis` (34→65), I asked Claude to re-read the new confusion
+  matrix rather than assume the fix just hadn't been enough — it's almost
+  the same one-directional pattern as before (seed 2024 is the one
+  exception: 1 of 6 `hot_take` posts landed on `analysis` instead of
+  `reaction`). That's why "What's Still Broken" points past pure data
+  volume and back toward the open labelling-consistency question, instead
+  of recommending a second, larger data-addition round.
+
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
      Don't fill these in during unit 5.
@@ -537,10 +560,50 @@ can confirm or rule out.
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
 
+**Criterion 1 — Overall accuracy (still MISSED, 0.556 after, vs. ≥ 0.80
+target):** Accuracy can't clear 0.80 while two of three labels get 0 recall,
+so this is downstream of criterion 2, not a separate problem. What I'd do
+next: nothing further until criterion 2 moves, since fixing accuracy
+directly without fixing the per-label collapse would just mean juicing the
+majority class. Why I stopped: this unit's improvement budget was one
+iteration (add examples to the thinnest label), and I used it; a second
+iteration is out of scope for this submission.
+
+**Criterion 2 — Per-label F1 (still MISSED, `analysis`/`hot_take` still
+0.000 after doubling `analysis`):** What I'd do next: (a) run `agreement.py`
+once `data/staff_labels.csv` arrives and use it to check whether some of
+the 65 `analysis` / 41 `hot_take` posts are themselves inconsistently
+labelled, which would explain why more raw examples didn't help; (b) try
+class-weighted loss or oversampling so training can't just default to
+`reaction`; (c) if neither of those explains it, add a second, larger batch
+of `analysis`/`hot_take` examples and re-test, since 65/41 may still not be
+enough. Why I stopped: ran out of time inside this unit after running the
+one data-addition experiment and seeing it fail cleanly — the honest
+finding (scarcity alone doesn't explain it) was itself worth reporting
+rather than papering over with an untested second fix.
+
+**Criterion 4 — Consistency (still *pending*, not MISSED):** What I'd do:
+run `agreement.py` the moment `data/staff_labels.csv` is supplied and fold
+the disagreement adjudication into the Diagnoses section above, since it's
+the only instrument that can confirm or rule out the labelling-consistency
+explanation the improvement result (criterion 2) now points back toward.
+Why I stopped: this is blocked on an external dependency (the TF hasn't
+provided the staff labels yet), not a time or effort tradeoff — there's
+nothing to substitute it with per the assignment's own instructions.
+
 **The gap between what I meant my labels to capture and what the model
 learned:**
 
 <!-- Two sentences. Your confusion matrix is the evidence. -->
+
+My labels are meant to separate posts by whether a specific fact is
+load-bearing for a claim — a structural, reasoning-dependent distinction.
+The confusion matrix shows the model learned no such structure at all: every
+single `analysis` (10/10) and `hot_take` (6/6) post in the after test split
+(seed 42) was routed to `reaction`, with zero predictions ever landing on
+either minority label in either direction — it learned to default to the
+majority surface pattern, not the fact-dependency the taxonomy actually
+tests for.
 
 <!-- ═════════════════════════════════════════════════════════════════════
 
