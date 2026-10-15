@@ -272,11 +272,11 @@ per-label target (criterion 2) was written to expect.
 
 | Measure           | Baseline | Trained | Difference |
 | ----------------- | -------- | ------- | ---------- |
-| Overall accuracy  | 0.188    | 0.656   | +0.469     |
-| Macro F1          | 0.182    | 0.264   | +0.082     |
-| F1 —`analysis` | 0.296    | 0.000   | -0.296     |
-| F1 —`hot_take` | 0.250    | 0.000   | -0.250     |
-| F1 —`reaction` | 0.000    | 0.792   | +0.792     |
+| Overall accuracy  | 0.656    | 0.656   | +0.000     |
+| Macro F1          | 0.264    | 0.264   | +0.000     |
+| F1 —`analysis` | 0.000    | 0.000   | +0.000     |
+| F1 —`hot_take` | 0.000    | 0.000   | +0.000     |
+| F1 —`reaction` | 0.792    | 0.792   | +0.000     |
 
 **What I predicted before I looked:** I can't honestly fill this in. I'd
 already seen the trained model's per-label numbers earlier in this session
@@ -286,17 +286,24 @@ here, and writing one now, after the fact, would be exactly what this
 milestone is designed to catch. Flagging the ordering problem instead of
 faking a prediction.
 
-**What the gap actually means:** The overall-accuracy gap (+0.469) is
-misleading on its own. The trained model's accuracy is close to what you'd
-get by just always predicting `reaction` (134/209 = 64.1% of the training
-data) — and the per-label F1 confirms it: `analysis` and `hot_take` are
-both exactly 0.0 for the trained model, meaning it never predicts either
-label on the held-out test posts. It didn't learn the taxonomy; it learned
-the base rate. The baseline, for all its lower overall accuracy, actually
-carries real (if weak) signal on the minority labels which are 0.296 and 0.250 F1
-where the trained model has none. Fine-tuning made the model *more*
-confidently wrong about exactly the two labels this project is supposed to
-be able to tell apart from `reaction`.
+**What the gap actually means:** There is no gap. Both models predict
+`reaction` for all 32 held-out posts and nothing else, so every measure
+matches to three decimal places. (An earlier run of this table showed the
+baseline ahead on the minority labels — 0.296 and 0.250 F1 on `analysis`
+and `hot_take` — but that came from a bug in `label_definitions.txt`: the
+definitions were hand-wrapped across multiple lines, and `baseline.py`'s
+parser reads one label per physical line, so every definition past the
+first line-wrap was silently truncated before it ever reached the model.
+The "signal" was the zero-shot model reacting to incomplete prompts, not
+real taxonomy understanding. Once the definitions were fixed to one line
+each, the baseline collapsed to the same always-`reaction` behavior as the
+trained model.) With a correctly-specified prompt, neither model
+distinguishes `analysis` or `hot_take` from `reaction` on this split at
+all — the trained model's accuracy is just the base rate (`reaction` is
+134/209 = 64.1% of the training data, and 21/32 = 65.6% of this test
+split), and the zero-shot model reaches the identical number by the same
+shortcut. Fine-tuning added nothing over a zero-shot model given only the
+label definitions.
 
 ---
 
