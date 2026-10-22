@@ -340,7 +340,7 @@ label definitions.
 | 1. Overall accuracy | ≥ 0.80                                               | 0.656                                                          | 0.656                                                          | 0.656                                                          | **MISSED**                              |
 | 2. Per-label F1     | every label ≥ 0.50                                   | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | **MISSED** (`analysis`, `hot_take`) |
 | 3. Balance          | no label > 70%; smallest ≥ 30 examples (pre-split)   | `reaction` 64.1%, smallest (`analysis`) 34                 | *(dataset-level — same file for every seed)*                | *(same)*                                                     | **MET**                                 |
-| 4. Consistency      | ≥ 75% agreement on staff set                         | *not yet run*                                                |                                                                |                                                                | *pending — run `agreement.py`*           |
+| 4. Consistency      | ≥ 75% agreement on staff set                         | 93.3% (28/30)                                                | *(dataset-level — same staff set regardless of seed)*         | *(same)*                                                      | **MET**                                 |
 | 5. Confidence       | accuracy ≥ 0.85 among predictions ≥ 0.90 confidence | 1.000 (proxy)                                                  | 0.900 (proxy)                                                  | 0.900 (proxy)                                                  | **MET** (on proxy — see note)          |
 
 **Note on row 5:** `results_three_seeds_before.json` only saves confidence in
@@ -353,10 +353,10 @@ predictions are more often right" partly reflects that `reaction` actually is
 right 21/32 of the time — a confidence score tracking its own majority-class
 bias, not necessarily evidence the model is well-calibrated.
 
-**Note on row 4:** No value yet. `agreement.py` requires `data/staff_labels.csv`,
-which TF provides only after `my_staff_labels.csv` is submitted — it
-can't be estimated or substituted. This row gets filled in once that file
-arrives.
+**Note on row 4:** Measured once `data/staff_labels.csv` arrived — 28/30
+posts matched staff's labels under their taxonomy (`data/staff_taxonomy.md`),
+clearing the ≥75% target. Both disagreements are adjudicated in the
+Agreement Report section below.
 
 ### Confusion matrix
 
@@ -397,7 +397,7 @@ boundary would look like.
 | 1 | Overall accuracy | ≥ 0.80, all three seeds | **MISSED** | 0.656 in every seed (42, 7, 2024) — short of 0.80 in each one individually, not just on average |
 | 2 | Per-label F1 | every label ≥ 0.50, all three seeds | **MISSED** | `reaction` clears it (0.792 in every seed), but `analysis` and `hot_take` are 0.000 in every seed — the model never predicts either label at all |
 | 3 | Balance | no label > 70%; smallest ≥ 30 examples (pre-split) | **MET** | `reaction` is 64.1% of `labels.csv` (< 70%), and the smallest label (`analysis`) has 34 examples (≥ 30) |
-| 4 | Consistency | ≥ 75% agreement on staff set | **Not yet measured** | `agreement.py` needs `data/staff_labels.csv`, which hasn't arrived from course staff yet |
+| 4 | Consistency | ≥ 75% agreement on staff set | **MET** | 28/30 = 93.3% against `data/staff_labels.csv`; both disagreements traced to the written rule applied loosely (pile (a)), not a gap or a defensible alternate reading — see the Agreement Report below |
 | 5 | Confidence | accuracy ≥ 0.85 among predictions ≥ 0.90 confidence | **MET** (on proxy) | Exact threshold isn't saved by the notebook; most-confident-third accuracy (1.000 / 0.900 / 0.900) stands in as a disclosed substitute — see the Run Log note |
 
 **Diagnoses**
@@ -467,49 +467,58 @@ How I know, ruling out the other three:
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
-
-<!-- Nobody grades this number. A 60% who argues every disagreement from the
-     stated rules beats a 95% who wrote "staff was right" nine times. Several
-     of the 30 were chosen because they're genuinely ambiguous — you should be
-     winning some of these. -->
+**Agreement rate:** 28 / 30 = 93.3%
 
 **Disagreements**
 
-<!-- Three lines each: the post, both labels, and who you think is right and
-     why — grounded in the staff definitions you were both applying.
-
-     Then sort each into one of three piles:
-       (a) the rule covered it and I applied it loosely → a consistency problem
-       (b) the rule genuinely doesn't say               → a gap in the definitions
-       (c) the rule is ambiguous here and my reading is defensible → argue it.
-           This is a legitimate win.
-
-     Pile (a) is the one that matters most for your diagnosis: if you applied a
-     written rule two different ways on 30 posts, that is direct evidence about
-     what you did across your own 200. -->
-
 **1.**
 
-> *The post:*
+> *The post:* "Times are down about 3% since the shoe rules changed, so
+> obviously the shoes are the whole story and the sport has a problem."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* Staff: `hot_take` · I said: `analysis`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. This is almost exactly the taxonomy's
+> own worked example under Rule 1 ("times are down 3% since 2017" →
+> `hot_take`, "the 3% is offered as a flourish, not as the reason"). "So
+> obviously... the whole story" shows the conclusion was already reached
+> before the stat was introduced — the 3% is decoration, not the thing doing
+> the arguing. I pattern-matched "has a stat → `analysis`" instead of
+> checking whether the stat was load-bearing.
 >
-> *Which pile:*
+> *Which pile:* (a) — the rule covered this explicitly (it's the canonical
+> Rule 1 case), I applied it loosely.
 
 **2.**
 
-> *The post:*
+> *The post:* "Signed up. Card's charged, no going back, immediately regret
+> everything."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* Staff: `reaction` · I said: `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. Rule 2's test is whether the claim is
+> about the writer or about the world. Every clause here is first-person and
+> about something that just happened to the writer (signed up, card charged,
+> regret) — there's no general claim about the world. The declarative tone of
+> "no going back" read as hot-take-style confidence to me, but tone isn't the
+> test; subject is, and the subject is entirely the writer's own immediate
+> experience.
 >
-> *Which pile:*
+> *Which pile:* (a) — the rule covered this, the confident phrasing pulled me
+> toward `hot_take` despite the post failing the "about a claim vs. about the
+> writer" test.
 
-**What the pattern in my disagreements tells me:**
+**What the pattern in my disagreements tells me:** Both misses are pile (a)
+— a written rule applied loosely, not a gap in the definitions or a
+defensible alternate reading — and both came from the same failure mode:
+reacting to a surface feature (a stat being present, a confident tone)
+instead of running the actual test the rule specifies (is the fact
+load-bearing; is the claim about the writer or the world). That said, it's 2
+slips in 30, a 93.3% rate well clear of the ≥75% target, so this doesn't read
+as pervasive inconsistency — it argues against my own labelling being a
+major contributor to the `analysis`/`hot_take` collapse in the trained
+model, which narrows rather than confirms the "boundary applied
+inconsistently" open question from the Diagnoses section above.
 
 ---
 
@@ -534,7 +543,7 @@ consistency question it left open.
 | 1. Overall accuracy | ≥ 0.80 | 0.656 | 0.656 | 0.656 | **MISSED** | 0.556 | 0.556 | 0.556 | **MISSED** |
 | 2. Per-label F1 | every label ≥ 0.50 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.792 | **MISSED** (`analysis`, `hot_take`) | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.714 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.714 | `analysis` 0.000 · `hot_take` 0.000 · `reaction` 0.727 | **MISSED** (`analysis`, `hot_take`) |
 | 3. Balance | no label > 70%; smallest ≥ 30 examples (pre-split) | `reaction` 64.1%, smallest (`analysis`) 34 | *(same file every seed)* | *(same)* | **MET** | `reaction` 55.8%, smallest (`hot_take`) 41 | *(same file every seed)* | *(same)* | **MET** |
-| 4. Consistency | ≥ 75% agreement on staff set | *not yet run* | | | *pending* | *not yet run* | | | *pending* |
+| 4. Consistency | ≥ 75% agreement on staff set | 93.3% (28/30) | *(same measurement — doesn't depend on model or seed)* | *(same)* | **MET** | 93.3% (28/30) | *(same)* | *(same)* | **MET** |
 | 5. Confidence | accuracy ≥ 0.85 among predictions ≥ 0.90 confidence | 1.000 (proxy) | 0.900 (proxy) | 0.900 (proxy) | **MET** (on proxy) | 0.917 (proxy) | 0.917 (proxy) | 0.917 (proxy) | **MET** (on proxy) |
 
 **Did it help, and how do I know:** No. Nearly doubling `analysis` (34 → 65)
