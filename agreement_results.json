@@ -1,0 +1,18 @@
+{
+  "compared": 30,
+  "agreed": 28,
+  "agreement_rate": 0.9333333333333333,
+  "disagreements": [
+    {
+      "text": "Times are down about 3% since the shoe rules changed, so obviously the shoes are the whole story and the sport has a problem.",
+      "staff": "hot_take",
+      "mine": "analysis\\"
+    },
+    {
+      "text": "Signed up. Card's charged, no going back, immediately regret everything.",
+      "staff": "reaction",
+      "mine": "hot_take"
+    }
+  ],
+  "staff_posts_not_in_mine": 0
+}
